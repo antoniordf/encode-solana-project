@@ -8,10 +8,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        purple: {
+          200: '#f087ff',
+          500: '#9945FF',
+          900: '#6e1fce'
+        },
+        emerald: {
+          500: '#14F195',
+        }
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'hero': 'url("/header-bg-dark.jpeg")'
       },
     },
   },
