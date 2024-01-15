@@ -10,7 +10,6 @@ pub use error::ErrorCodes;
 pub use instructions::*;
 pub use states::*;
 
-//use crate::instruction::ManageCompetition;
 
 declare_id!("9TN3ZKV1B5ARTUjBgigHAL7iQDZAStYxfGGAjqEtu9XX");
 

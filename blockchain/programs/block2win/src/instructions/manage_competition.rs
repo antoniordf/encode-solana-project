@@ -13,7 +13,7 @@ pub struct ManageCompetition<'info> {
         seeds=[b"manage-competition", authority.key().as_ref()],
         bump,
         payer=authority,
-        space=128
+        space=CompetitionModel::storage_size(&CompetitionModel::default())
     )]
     pub competition: Account<'info, CompetitionModel>,
 
