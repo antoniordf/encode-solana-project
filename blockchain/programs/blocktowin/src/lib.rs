@@ -26,7 +26,7 @@ declare_id!("9TN3ZKV1B5ARTUjBgigHAL7iQDZAStYxfGGAjqEtu9XX");
 // Draw Winning Entry ID.
 
 #[program]
-pub mod block2win {
+pub mod blocktowin {
     use super::*;
 
     /// Add, edit competition
