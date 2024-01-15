@@ -9,8 +9,14 @@ describe("block2win", () => {
   const program = anchor.workspace.Block2win as Program<Block2win>;
 
   it("Is initialized!", async () => {
+
+    console.log( program.methods );
+
     // Add your test here.
-    const tx = await program.methods.initialize().rpc();
+    const tx = await program.methods.manageCompetition(
+      'Name',
+      'Description'
+    ).rpc();
     console.log("Your transaction signature", tx);
   });
 });
