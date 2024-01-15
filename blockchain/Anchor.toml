@@ -5,7 +5,7 @@ seeds = false
 skip-lint = false
 
 [programs.localnet]
-blockchain = "9TN3ZKV1B5ARTUjBgigHAL7iQDZAStYxfGGAjqEtu9XX"
+block2win = "9TN3ZKV1B5ARTUjBgigHAL7iQDZAStYxfGGAjqEtu9XX"
 
 [registry]
 url = "https://api.apr.dev"
