@@ -10,7 +10,7 @@ pub struct CompetitionUser {
 
 impl CompetitionUser {
     /// Calculate storage size based on struct defined above
-    pub fn calculate_size(&self) -> usize {
+    pub fn storage_size(&self) -> usize {
         std::mem::size_of::<CompetitionUser>()
     }
 }
