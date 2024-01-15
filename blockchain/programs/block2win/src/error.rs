@@ -1,13 +1,13 @@
 use anchor_lang::prelude::*;
 
 #[error_code]
-pub enum CompetionError {
+pub enum CompetitionError {
     #[msg("You are not authorised to do this.")]
-    Unauthorized
+    Unauthorized,
     #[msg("Not allowed")]
-    NotAllowed
+    NotAllowed,
     #[msg("Already entered into competion")]
-    AlreadyEntered
+    AlreadyEntered,
     #[msg("Max number of entries exceeded")]
     MaxEntries
 }
