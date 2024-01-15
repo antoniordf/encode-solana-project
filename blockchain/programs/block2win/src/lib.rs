@@ -1,11 +1,16 @@
+use anchor_lang::prelude::*;
+
 pub mod error;
+pub mod constant;
 pub mod instructions;
 pub mod states;
 
-pub use error::*;
+
+pub use error::ErrorCodes;
 pub use instructions::*;
 pub use states::*;
 
+//use crate::instruction::ManageCompetition;
 
 declare_id!("9TN3ZKV1B5ARTUjBgigHAL7iQDZAStYxfGGAjqEtu9XX");
 
@@ -39,14 +44,14 @@ pub mod block2win {
         ctx: Context<BuyTickets>,
         account: Pubkey,
         number: u16
-    )-> Result<()> {
+    ) -> Result<()> {
         instructions::buy_tickets::handler(ctx, account, number)
     }
     
     /// Select Winner
     pub fn select_winner(
         ctx: Context<SelectWinner>
-    )-> Result<()> {
+    ) -> Result<()> {
         instructions::select_winner::handler(ctx)
     }
     
