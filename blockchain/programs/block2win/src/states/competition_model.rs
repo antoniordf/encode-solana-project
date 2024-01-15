@@ -1,11 +1,12 @@
 use anchor_lang::prelude::*;
 
+
 #[account]
 #[derive(Default)]
-pub struct CompetitionModel<T> {
+pub struct CompetitionModel {
     
     /// Owner Account - 32
-    pub authority: PubKey,
+    pub authority: Pubkey,
 
     /// Competition ID - 4
     pub idx: u32,
@@ -32,23 +33,28 @@ pub struct CompetitionModel<T> {
     pub maxentries: u64,
 
     /// Timestamp for open date tickets can be bought from - 8
-    pub opendate: u64,
+    pub opendate: i64,
 
     /// Timestamp for closing date of competition - 8
-    pub closedate: u64,
+    pub closedate: i64,
 
-    /// Dynamic array for storage of entries - unknown size
-    pub entries: Vec<T>
+    /// Bump var for PDA
+    pub bump: u8,
+    //#[account(init, bump, space = 8 + 32 + 32 + 8 + 8 + 8 + 8 + 8 + 8 + 8 + 8)]
+
+    // Dynamic array for storage of entries - unknown size
+    //pub entries: Vec<Account<'info, CompetitionUser>>
 }
 
 
-impl<T> CompetitionModel<T> {
+impl CompetitionModel {
 
     /// Calculate storage size of or fixed struct plus the dynamic size of entires
-    pub fn storage_size(&self) -> usize {
-        let entry_size = std::mem::size_of::<T>();
-        let entries_size = self.entries.len() * entry_size;
-        let fixed_size = std::mem::size_of::<CompetitionModel<T>>();
-        8 + fixed_size + entries_size
+    pub fn storage_size() -> u64 {
+        //let entry_size = std::mem::size_of::<CompetitionUser>() as u64;
+        //let entries_size = self.entries.len() as u64 * entry_size;
+        //let fixed_size = std::mem::size_of::<CompetitionModel>() as u64;
+        let fixed_size = 128;
+        8 + fixed_size
     }
 }
