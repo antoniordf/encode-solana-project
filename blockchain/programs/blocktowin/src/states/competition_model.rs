@@ -47,7 +47,7 @@ pub struct CompetitionModel {
 }
 
 
-impl<'info> CompetitionModel {
+impl CompetitionModel {
 
     /// Calculate storage size of or fixed struct plus the dynamic size of entires
     pub fn storage_size(_instance: &CompetitionModel) -> usize {
