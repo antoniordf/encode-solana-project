@@ -1,15 +1,13 @@
 use anchor_lang::prelude::*;
 
-pub mod error;
 pub mod constant;
+pub mod error;
 pub mod instructions;
 pub mod states;
-
 
 pub use error::ErrorCodes;
 pub use instructions::*;
 pub use states::*;
-
 
 declare_id!("9TN3ZKV1B5ARTUjBgigHAL7iQDZAStYxfGGAjqEtu9XX");
 
@@ -33,26 +31,18 @@ pub mod blocktowin {
     pub fn manage_competition(
         ctx: Context<ManageCompetition>,
         title: String,
-        description: String
+        description: String,
     ) -> Result<()> {
         instructions::manage_competition::handler(ctx, title, description)
     }
 
     /// Buy Tickets - entry to competition
-    pub fn buy_tickets(
-        ctx: Context<BuyTickets>,
-        account: Pubkey,
-        number: u16
-    ) -> Result<()> {
+    pub fn buy_tickets(ctx: Context<BuyTickets>, account: Pubkey, number: u16) -> Result<()> {
         instructions::buy_tickets::handler(ctx, account, number)
     }
-    
+
     /// Select Winner
-    pub fn select_winner(
-        ctx: Context<SelectWinner>
-    ) -> Result<()> {
+    pub fn select_winner(ctx: Context<SelectWinner>) -> Result<Pubkey> {
         instructions::select_winner::handler(ctx)
     }
-    
 }
-
