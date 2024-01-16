@@ -10,8 +10,6 @@ import { NavigationItem } from '../NavigationItem'
 
 
 export const NavBar:FC = () => {
-  const { publicKey, sendTransaction } = useWallet()
-  
   return (
     <div className='bg-slate-950 w-full flex justify-center items-center'>
       <div className='max-w-5xl w-full py-6 flex justify-between items-center'>
