@@ -24,8 +24,8 @@ pub fn handler(ctx: Context<BuyTickets>, account: Pubkey, number: u16) -> Result
     // Logic for handling purchase of tickets
     let competition = &mut ctx.accounts.competition;
 
-    let clock = Clock::get()?;
-    let current_timestamp = clock.unix_timestamp;
+    let clock: Clock = Clock::get()?;
+    let current_timestamp: i64 = clock.unix_timestamp;
 
     if current_timestamp > competition.closedate || current_timestamp < competition.opendate {
         return Err(ErrorCodes::NotAllowed.into());
@@ -38,7 +38,8 @@ pub fn handler(ctx: Context<BuyTickets>, account: Pubkey, number: u16) -> Result
     // Do we need to create a PDA for this buyer/competition if one doesnt exist?
 
     // Check if user already has entries
-    let user_competition_tickets = &mut ctx.accounts.user_competition_tickets;
+    let user_competition_tickets: &mut Account<'_, CompetitionUser> =
+        &mut ctx.accounts.user_competition_tickets;
     // TODO check if this is correct
     if user_competition_tickets.tickets > competition.maxentries as i64 {
         return Err(ErrorCodes::AlreadyEntered.into());
