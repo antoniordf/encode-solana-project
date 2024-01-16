@@ -1,10 +1,10 @@
-import Image from 'next/image'
-import { Button } from '@chakra-ui/react'
-import { Hero } from './modules/Hero/Hero'
+import { Hero } from './modules/Hero'
+import { NavBar } from './modules/NavBar'
 
 export default function Home() {
   return (
     <main className="bg-hero bg-cover flex min-h-screen flex-col items-center justify-between">
+      <NavBar />
       <Hero />
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
         <a
