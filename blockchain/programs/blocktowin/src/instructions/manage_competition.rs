@@ -15,7 +15,7 @@ pub struct ManageCompetition<'info> {
         payer=authority,
         space=CompetitionModel::storage_size(&CompetitionModel::default())
     )]
-    pub competition: Account<'info, CompetitionModel>,
+    pub competition: Box<Account<'info, CompetitionModel>>,
 
     #[account(mut)]
     pub authority: Signer<'info>,  // TODO admin contract owner check??
@@ -29,7 +29,7 @@ pub struct ManageCompetition<'info> {
 pub fn handler<>(ctx: Context<ManageCompetition>, title: String, description: String) -> Result<()> {
 
     // PDA account for holding competition
-    let competition: &mut Account<'_, CompetitionModel> = &mut ctx.accounts.competition;
+    let competition: &mut Box<Account<'_, CompetitionModel>> = &mut ctx.accounts.competition;
 
     // Setup competition vars
     competition.authority = ctx.accounts.authority.key(); // need to enforce is admin
