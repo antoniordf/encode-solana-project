@@ -2,7 +2,6 @@
 
 import { Stack } from '@chakra-ui/react'
 import React, { FC } from 'react'
-import { useWallet } from '@solana/wallet-adapter-react'
 import {
   WalletMultiButton
 } from '@solana/wallet-adapter-react-ui'
