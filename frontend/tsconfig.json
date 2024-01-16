@@ -27,6 +27,7 @@
         "./*"
       ]
     },
+    "baseUrl": ".",
     "forceConsistentCasingInFileNames": true
   },
   "include": [
