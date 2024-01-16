@@ -1,12 +1,12 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
-import { Block2win } from "../target/types/block2win";
+import { Blocktowin } from "../target/types/blocktowin";
 
-describe("block2win", () => {
+describe("blocktowin", () => {
   // Configure the client to use the local cluster.
   anchor.setProvider(anchor.AnchorProvider.env());
 
-  const program = anchor.workspace.Block2win as Program<Block2win>;
+  const program = anchor.workspace.Blocktowin as Program<Blocktowin>;
 
   it("Is initialized!", async () => {
 
