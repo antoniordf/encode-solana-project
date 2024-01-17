@@ -9,7 +9,7 @@ pub use error::ErrorCodes;
 pub use instructions::*;
 pub use states::*;
 
-declare_id!("9TN3ZKV1B5ARTUjBgigHAL7iQDZAStYxfGGAjqEtu9XX");
+declare_id!("HgDCYQefJ2eWbi4MKXLhuNTVAYzVyD6pxrWnk79Zqs57");
 
 // Init structs with default values
 
@@ -25,7 +25,16 @@ declare_id!("9TN3ZKV1B5ARTUjBgigHAL7iQDZAStYxfGGAjqEtu9XX");
 
 #[program]
 pub mod blocktowin {
+
     use super::*;
+
+    // Create competition owner account
+    pub fn init_competitions(
+        ctx: Context<InitCompetitionOwner>,
+        count: u32
+    ) -> Result<Pubkey> {
+        instructions::init_competitions::handler(ctx, count)
+    }
 
     /// Add, edit competition
     pub fn manage_competition(
