@@ -1,0 +1,277 @@
+{
+  "version": "0.1.0",
+  "name": "blocktowin",
+  "constants": [
+    {
+      "name": "DEFAULT_PRIZE_POOL",
+      "type": "u64",
+      "value": "1_000_000"
+    },
+    {
+      "name": "DEFAULT_TICKET_COUNT",
+      "type": "u64",
+      "value": "10"
+    },
+    {
+      "name": "DEFAULT_MAX_ENTRIES",
+      "type": "u16",
+      "value": "5"
+    },
+    {
+      "name": "PROFIT_RATIO",
+      "type": "u64",
+      "value": "2"
+    }
+  ],
+  "instructions": [
+    {
+      "name": "manageCompetition",
+      "docs": [
+        "Add, edit competition"
+      ],
+      "accounts": [
+        {
+          "name": "competition",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "clock",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "buyTickets",
+      "docs": [
+        "Buy Tickets - entry to competition"
+      ],
+      "accounts": [
+        {
+          "name": "buyer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "competition",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "account",
+          "type": "publicKey"
+        },
+        {
+          "name": "number",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "selectWinner",
+      "docs": [
+        "Select Winner"
+      ],
+      "accounts": [
+        {
+          "name": "competition",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [],
+      "returns": "publicKey"
+    }
+  ],
+  "accounts": [
+    {
+      "name": "CompetitionModel",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "docs": [
+              "Owner Account - 32"
+            ],
+            "type": "publicKey"
+          },
+          {
+            "name": "idx",
+            "docs": [
+              "Competition ID - 4"
+            ],
+            "type": "u32"
+          },
+          {
+            "name": "title",
+            "docs": [
+              "Competition Title - 32"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "docs": [
+              "Competition Description - 32"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "poolprize",
+            "docs": [
+              "Pool Prize value in Lamports (1 Billion Lamports = 1 Sol) - 8"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "entrycost",
+            "docs": [
+              "Ticket Cost in Lamports (1 Billion Lamports = 1 Sol) - 8"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "totaltickets",
+            "docs": [
+              "Total Tickets available in competition - 8"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "soldtickets",
+            "docs": [
+              "Tracker for current tickets sold so far - 8"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "maxentries",
+            "docs": [
+              "Max number of entries/tickets per user - 8"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "opendate",
+            "docs": [
+              "Timestamp for open date tickets can be bought from - 8"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "closedate",
+            "docs": [
+              "Timestamp for closing date of competition - 8"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "Bump var for PDA"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "entries",
+            "type": {
+              "array": [
+                {
+                  "option": {
+                    "defined": "CompetitionUser"
+                  }
+                },
+                10
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "CompetitionUser",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "docs": [
+              "Competition users public address - 32"
+            ],
+            "type": "publicKey"
+          },
+          {
+            "name": "tickets",
+            "docs": [
+              "Number of tickets purchased"
+            ],
+            "type": "i64"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "You are not authorised to do this."
+    },
+    {
+      "code": 6001,
+      "name": "NotAllowed",
+      "msg": "Not allowed"
+    },
+    {
+      "code": 6002,
+      "name": "AlreadyEntered",
+      "msg": "Already entered into competion"
+    },
+    {
+      "code": 6003,
+      "name": "MaxEntries",
+      "msg": "Max number of entries exceeded"
+    }
+  ]
+}
