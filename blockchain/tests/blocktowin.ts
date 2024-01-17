@@ -21,7 +21,7 @@ describe("blocktowin", () => {
     console.log("Your transaction signature", tx);
   });
 
-  // testing the select wionner function
+  // testing the select winner function
   it("should select a winner", async () => {
     // Create a competition.
     const competition = anchor.web3.Keypair.generate();
