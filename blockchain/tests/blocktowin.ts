@@ -1,6 +1,10 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
 import { Blocktowin } from "../target/types/blocktowin";
+import { PublicKey } from "@solana/web3.js";
+// import { CompetitionUser } from "../target/types/blocktowin"; // Import the CompetitionUser class
+import { expect } from "chai";
+import { findProgramAddressSync } from "@project-serum/anchor/dist/cjs/utils/pubkey";
 
 describe("blocktowin", () => {
   // Configure the client to use the local cluster.
@@ -8,20 +12,51 @@ describe("blocktowin", () => {
 
   const program = anchor.workspace.Blocktowin as Program<Blocktowin>;
 
-  it("can fetch all competitions", async () => {
-    const comps = await program.account.competitionModel.all();
-    console.log("Your Competitions", comps);
-  });
 
-  it("Is initialized!", async () => {
+  // testing the select winner function
+  it("should select a winner", async () => {
+    // Create a competition.
+    // const competition = anchor.web3.Keypair.generate();
+    const signer = anchor.web3.Keypair.generate();
+    let [competition] = findProgramAddressSync(
+      [
+        anchor.utils.bytes.utf8.encode("manage-competition"),
+        signer.publicKey.toBuffer(),
+      ],
+      program.programId
+    );
 
-    console.log( program.methods );
+    // Create some entries in the competition.
+    const entries = [
+      { authority: new PublicKey("somePublicKey1"), tickets: 5 },
+      { authority: new PublicKey("somePublicKey2"), tickets: 3 },
+      { authority: new PublicKey("somePublicKey3"), tickets: 2 },
+      // Add more entries as needed
+    ];
 
-    // Add your test here.
-    const tx = await program.methods.manageCompetition(
-      'Name',
-      'Description'
-    ).rpc();
-    console.log("Your transaction signature", tx);
+    // Save the competition to the blockchain.
+    await program.methods
+      .manageCompetition("Test Competition", "This is a test competition")
+      .accounts({
+        competition: competition,
+        authority: signer.publicKey,
+        systemProgram: anchor.web3.SystemProgram.programId,
+      })
+      .signers([signer])
+      .rpc();
+
+    // Call the select_winner function.
+    const winner = await program.methods
+      .selectWinner()
+      .accounts({
+        competition: competition,
+        authority: signer.publicKey,
+        systemProgram: anchor.web3.SystemProgram.programId,
+      })
+      .signers([signer])
+      .rpc();
+
+    // Check that a winner was selected.
+    expect(winner).to.be.instanceOf(PublicKey);
   });
 });

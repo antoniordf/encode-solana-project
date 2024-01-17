@@ -12,8 +12,6 @@ import { clusterApiUrl } from '@solana/web3.js'
 import '@solana/wallet-adapter-react-ui/styles.css'
 import { useMemo } from 'react';
 
-const blocktowinContractAddress = 'FamG9VxcBpXYGeFHUgPDqVBdFMqNh3omntXwWXZpJitE';
-
 export function Providers({ children }: { children: React.ReactNode }) {
   const network = WalletAdapterNetwork.Devnet;
 
@@ -30,7 +28,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
-            <ChakraProvider>{children}</ChakraProvider>
+          <ChakraProvider>{children}</ChakraProvider>
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
