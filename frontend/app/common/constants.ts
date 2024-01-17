@@ -1,0 +1,1 @@
+export const blocktowinContractAddress = 'FamG9VxcBpXYGeFHUgPDqVBdFMqNh3omntXwWXZpJitE'
