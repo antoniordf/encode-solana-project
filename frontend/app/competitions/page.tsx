@@ -1,6 +1,6 @@
 import { Flex, Spacer } from '@chakra-ui/react'
 
-import { AddCompetition } from '../modules/AddCompetition/AddCompetition'
+import { AddCompetition } from '../modules/AddCompetition'
 import { CompetitionList } from '../modules/CompetitionList'
 import { NavBar } from '../modules/NavBar'
 

@@ -28,7 +28,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
-            <ChakraProvider>{children}</ChakraProvider>
+          <ChakraProvider>{children}</ChakraProvider>
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
