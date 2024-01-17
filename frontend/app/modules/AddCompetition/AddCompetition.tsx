@@ -3,7 +3,10 @@
 import { Button, Input, Textarea } from '@chakra-ui/react'
 import React, { FC } from 'react'
 
+import { useBlock2Win } from '@/app/common/useBlock2Win/useBlock2Win'
+
 export const AddCompetition:FC = () => {
+  const { manageCompetition } = useBlock2Win()
   const [ name, setName ] = React.useState<string>('')
   const [ description, setDescription ] = React.useState<string>('')
   const [ loading, setLoading ] = React.useState<boolean>(false)
@@ -30,6 +33,13 @@ export const AddCompetition:FC = () => {
 
     setError('')
     console.log('Adding Competition', name, description)
+    setLoading(true)
+    const result = await manageCompetition({
+      name,
+      description
+    })
+    setLoading(false)
+    console.log(result)
   }
 
   return (
