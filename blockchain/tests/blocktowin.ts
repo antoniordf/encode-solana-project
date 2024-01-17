@@ -4,6 +4,7 @@ import { Blocktowin } from "../target/types/blocktowin";
 import { PublicKey } from "@solana/web3.js";
 // import { CompetitionUser } from "../target/types/blocktowin"; // Import the CompetitionUser class
 import { expect } from "chai";
+import { findProgramAddressSync } from "@project-serum/anchor/dist/cjs/utils/pubkey";
 
 describe("blocktowin", () => {
   // Configure the client to use the local cluster.
@@ -11,21 +12,18 @@ describe("blocktowin", () => {
 
   const program = anchor.workspace.Blocktowin as Program<Blocktowin>;
 
-  it("Is initialized!", async () => {
-    console.log(program.methods);
-
-    // Add your test here.
-    const tx = await program.methods
-      .manageCompetition("Name", "Description")
-      .rpc();
-    console.log("Your transaction signature", tx);
-  });
-
   // testing the select winner function
   it("should select a winner", async () => {
     // Create a competition.
-    const competition = anchor.web3.Keypair.generate();
+    // const competition = anchor.web3.Keypair.generate();
     const signer = anchor.web3.Keypair.generate();
+    let [competition] = findProgramAddressSync(
+      [
+        anchor.utils.bytes.utf8.encode("manage-competition"),
+        signer.publicKey.toBuffer(),
+      ],
+      program.programId
+    );
 
     // Create some entries in the competition.
     const entries = [
@@ -39,7 +37,7 @@ describe("blocktowin", () => {
     await program.methods
       .manageCompetition("Test Competition", "This is a test competition")
       .accounts({
-        competition: competition.publicKey,
+        competition: competition,
         authority: signer.publicKey,
         systemProgram: anchor.web3.SystemProgram.programId,
       })
@@ -50,7 +48,7 @@ describe("blocktowin", () => {
     const winner = await program.methods
       .selectWinner()
       .accounts({
-        competition: competition.publicKey,
+        competition: competition,
         authority: signer.publicKey,
         systemProgram: anchor.web3.SystemProgram.programId,
       })
