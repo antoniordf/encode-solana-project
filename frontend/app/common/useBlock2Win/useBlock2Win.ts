@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useAnchorWallet, useConnection } from '@solana/wallet-adapter-react'
-import * as anchor from '@project-serum/anchor'
+import * as anchor from '@coral-xyz/anchor'
 
 import IDL from '../../../idl/blocktowin.json'
 import { blocktowinContractAddress } from '../constants'
+import { findProgramAddressSync } from '@project-serum/anchor/dist/cjs/utils/pubkey'
 
 export const useBlock2Win = () => {
   const wallet = useAnchorWallet()
@@ -33,31 +34,39 @@ export const useBlock2Win = () => {
     setProgram(_program)
   }, [wallet, connection, blocktowinContractAddress])
 
-  const manageCompetition = async (competition: {name: string, description: string}) => {
+  const manageCompetition = async ({ name, description }: {name: string, description: string}) => {
     if(!program) return
 
-    return program.methods.manageCompetition(competition, {
-      accounts: {
-        competition: wallet?.publicKey,
-        systemProgram: anchor.web3.SystemProgram.programId,
-        rent: anchor.web3.SYSVAR_RENT_PUBKEY,
-      },
-      signers: [wallet?.publicKey],
-    }).rpc()
+    const [competition] = findProgramAddressSync(
+      [
+        anchor.utils.bytes.utf8.encode('manage-competition'),
+        wallet!.publicKey.toBuffer(),
+      ],
+      program.programId
+    )
+
+  return program.methods.manageCompetition(
+      name,
+      description,
+    ).accounts({
+      competition,
+      authority: wallet!.publicKey,
+      systemProgram: anchor.web3.SystemProgram.programId //program.programId
+    })
+    .rpc()
   }
 
   const buyTickets = async (account: anchor.web3.PublicKey, amount: number) => {
     if(!program) return
 
-    return program.methods.buyTickets(amount, {
+    return program.methods.buyTickets(account, amount).accounts({
       accounts: {
+        buyer: wallet?.publicKey,
         competition: account,
-        user: wallet?.publicKey,
         systemProgram: anchor.web3.SystemProgram.programId,
-        rent: anchor.web3.SYSVAR_RENT_PUBKEY,
       },
-      signers: [wallet?.publicKey],
-    }).rpc()
+    })
+    .rpc()
   }
 
   const getCompetitions = async () => {

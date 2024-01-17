@@ -32,14 +32,17 @@ export const AddCompetition:FC = () => {
     }
 
     setError('')
-    console.log('Adding Competition', name, description)
     setLoading(true)
-    const result = await manageCompetition({
-      name,
-      description
-    })
+    try {
+      const result = await manageCompetition({
+        name,
+        description
+      })
+      console.log(result)
+    } catch (e: any) {
+      setError(e.message)
+    }
     setLoading(false)
-    console.log(result)
   }
 
   return (
@@ -56,8 +59,8 @@ export const AddCompetition:FC = () => {
           <div className='mb-4'>
             <p className='text-red-500'>{error}</p>
           </div> : null
-        } 
-        <Button colorScheme="purple" onClick={addCompetition}>Add Competition</Button>
+        }
+        <Button colorScheme="purple" onClick={addCompetition} isLoading={loading}>Add Competition</Button>
       </div>
     </div>
   )

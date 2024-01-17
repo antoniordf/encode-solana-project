@@ -43,9 +43,9 @@ export const CompetitionCard:FC<CompetitionCardProps> = ({ title, description, p
     <Card >
       <CardHeader className='flex justify-center items-center flex-col mb-0'>
         <Image src='/solana-sol-logo.png' width={50} height={50} alt='solana' />
-        <div className='font-bold text-4xl'>{poolPrize}</div>
+        <span className='font-bold text-4xl'>{poolPrize}</span>
       </CardHeader>
-      <CardBody>
+      <div className='px-6'>
         <h2 className='font-bold text-lg'>{title}</h2>
         <p className='text-sm'>{description}</p>
         <div className='text-sm font-bold mt-4'>
@@ -64,7 +64,7 @@ export const CompetitionCard:FC<CompetitionCardProps> = ({ title, description, p
           <div className='text-sm font-bold'>Tickets Sold</div>
           <Progress value={ticketsSold} max={totalTickets} />
         </div>
-      </CardBody>
+      </div>
       <CardFooter className='flex flex-col justify-between items-center'>
         <Input className='w-full mb-4' placeholder='Amount' onChange={onSetAmount}/><Button colorScheme="purple" onClick={onClick} className='w-full'>Buy Tickets</Button>
         <div className='h-6 flex justify-center items-center mt-1'>{error ? 
