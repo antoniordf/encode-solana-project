@@ -15,8 +15,8 @@ pub struct BuyTickets<'info> {
 
     pub system_program: Program<'info, System>,
 
-    #[account(mut)]
-    pub user_competition_tickets: Account<'info, CompetitionUser>,
+    //#[account(mut)]
+    //pub user_competition_tickets: Account<'info, CompetitionUser>,
 }
 
 // Why is number u16 here and u64 in the state?
@@ -38,12 +38,12 @@ pub fn handler(ctx: Context<BuyTickets>, account: Pubkey, number: u16) -> Result
     // Do we need to create a PDA for this buyer/competition if one doesnt exist?
 
     // Check if user already has entries
-    let user_competition_tickets: &mut Account<'_, CompetitionUser> =
-        &mut ctx.accounts.user_competition_tickets;
+    //let user_competition_tickets: &mut Account<'_, CompetitionUser> =
+    //    &mut ctx.accounts.user_competition_tickets;
     // TODO check if this is correct
-    if user_competition_tickets.tickets > competition.maxentries as i64 {
-        return Err(ErrorCodes::AlreadyEntered.into());
-    }
+    //if user_competition_tickets.tickets > competition.maxentries as i64 {
+    //    return Err(ErrorCodes::AlreadyEntered.into());
+    //}
 
     // TODO check if user has enough funds
 
