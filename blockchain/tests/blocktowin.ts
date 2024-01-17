@@ -2,12 +2,12 @@ import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
 import { Blocktowin } from "../target/types/blocktowin";
 import { PublicKey } from "@solana/web3.js";
-// import { CompetitionUser } from "../target/types/blocktowin"; // Import the CompetitionUser class
 import { expect } from "chai";
 import { findProgramAddressSync } from "@project-serum/anchor/dist/cjs/utils/pubkey";
 
 describe("blocktowin", () => {
   // Configure the client to use the local cluster.
+
   anchor.setProvider(anchor.AnchorProvider.env());
 
   const program = anchor.workspace.Blocktowin as Program<Blocktowin>;
@@ -16,6 +16,7 @@ describe("blocktowin", () => {
   it("should select a winner", async () => {
     // Create a competition.
     // const competition = anchor.web3.Keypair.generate();
+
     const signer = anchor.web3.Keypair.generate();
     let [competition] = findProgramAddressSync(
       [
@@ -26,14 +27,31 @@ describe("blocktowin", () => {
     );
 
     // Create some entries in the competition.
+
     const entries = [
-      { authority: new PublicKey("somePublicKey1"), tickets: 5 },
-      { authority: new PublicKey("somePublicKey2"), tickets: 3 },
-      { authority: new PublicKey("somePublicKey3"), tickets: 2 },
+      {
+        authority: new PublicKey(
+          "3GectP9Hqf3vjnypKqzRVmELR2rGUQ9LZb46qjKkghLL"
+        ),
+        tickets: 5,
+      },
+      {
+        authority: new PublicKey(
+          "8x8jf7ikJwgP9PZMdD4x8NqRi6m9C6iBZ9CqgBfzFvCz"
+        ),
+        tickets: 3,
+      },
+      {
+        authority: new PublicKey(
+          "DqTFLwhuR8ghrN7dYgo3zHtsrzLqH2vXoB9jtFoJZxeU"
+        ),
+        tickets: 2,
+      },
       // Add more entries as needed
     ];
 
     // Save the competition to the blockchain.
+
     await program.methods
       .manageCompetition("Test Competition", "This is a test competition")
       .accounts({
