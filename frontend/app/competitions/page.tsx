@@ -1,7 +1,10 @@
-import { Hero } from '../modules/Hero'
+import { useBlock2Win } from '../common/useBlock2Win/useBlock2Win'
 import { NavBar } from '../modules/NavBar'
 
 export default function Home() {
+  const { program } = useBlock2Win()
+
+  console.log(program)
   return (
     <main className="bg-hero bg-cover flex min-h-screen flex-col items-center">
       <NavBar />
