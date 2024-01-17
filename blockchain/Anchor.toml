@@ -7,11 +7,17 @@ skip-lint = false
 [programs.localnet]
 blocktowin = "9TN3ZKV1B5ARTUjBgigHAL7iQDZAStYxfGGAjqEtu9XX"
 
+[programs.devnet]
+blocktowin = "9TN3ZKV1B5ARTUjBgigHAL7iQDZAStYxfGGAjqEtu9XX"
+
+[programs.mainnet]
+blocktowin = "9TN3ZKV1B5ARTUjBgigHAL7iQDZAStYxfGGAjqEtu9XX"
+
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "devnet"
 wallet = "/home/ubuntu/.config/solana/id.json"
 
 [scripts]
