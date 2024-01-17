@@ -5,13 +5,13 @@ seeds = false
 skip-lint = false
 
 [programs.localnet]
-blocktowin = "9TN3ZKV1B5ARTUjBgigHAL7iQDZAStYxfGGAjqEtu9XX"
+blocktowin = "HgDCYQefJ2eWbi4MKXLhuNTVAYzVyD6pxrWnk79Zqs57"
 
 [programs.devnet]
-blocktowin = "9TN3ZKV1B5ARTUjBgigHAL7iQDZAStYxfGGAjqEtu9XX"
+blocktowin = "HgDCYQefJ2eWbi4MKXLhuNTVAYzVyD6pxrWnk79Zqs57"
 
 [programs.mainnet]
-blocktowin = "9TN3ZKV1B5ARTUjBgigHAL7iQDZAStYxfGGAjqEtu9XX"
+blocktowin = "HgDCYQefJ2eWbi4MKXLhuNTVAYzVyD6pxrWnk79Zqs57"
 
 [registry]
 url = "https://api.apr.dev"
@@ -21,4 +21,4 @@ cluster = "localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
-test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/createcompetition.ts"

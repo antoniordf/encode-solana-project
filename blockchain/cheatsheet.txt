@@ -1,0 +1,17 @@
+// Switch cluster localhost|devent|mainnet
+solana config set --url localhost
+
+// Run local validator ledger
+solana-test-validator
+
+// Anchor Build project
+anchor build
+
+// Anchor Build/Test/Deploy locally (using local-validator instead of anchors validator)
+anchor test --skip-local-validator
+
+// Anchor deploy to devnet|mainnet
+anchor deploy devnet
+
+// Close a deployed contract account and refund storage costs (if upgradeable)
+solana program close <PROGRAM_ID>
