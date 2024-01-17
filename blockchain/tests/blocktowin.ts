@@ -41,7 +41,6 @@ describe("blocktowin", () => {
       "This is a test competition"
     );
 
-    // Buy tickets for each entry.
     // Call the select_winner function.
     const winner = await program.methods.selectWinner();
 
