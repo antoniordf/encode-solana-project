@@ -2,12 +2,11 @@ use anchor_lang::prelude::*;
 
 #[derive(AnchorSerialize, AnchorDeserialize, Default, Clone, Copy)]
 pub struct CompetitionUser {
-
     /// Competition users public address - 32
     pub authority: Pubkey,
 
     /// Number of tickets purchased
-    pub tickets: i64
+    pub tickets: i64,
 }
 
 /*
