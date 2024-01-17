@@ -25,7 +25,7 @@ describe("blocktowin", () => {
   it("should select a winner", async () => {
     // Create a competition.
     const competition = anchor.web3.Keypair.generate();
-    const authority = anchor.web3.Keypair.generate();
+    const signer = anchor.web3.Keypair.generate();
 
     // Create some entries in the competition.
     const entries = [
@@ -36,13 +36,26 @@ describe("blocktowin", () => {
     ];
 
     // Save the competition to the blockchain.
-    await program.methods.manageCompetition(
-      "Test Competition",
-      "This is a test competition"
-    );
+    await program.methods
+      .manageCompetition("Test Competition", "This is a test competition")
+      .accounts({
+        competition: competition.publicKey,
+        authority: signer.publicKey,
+        systemProgram: anchor.web3.SystemProgram.programId,
+      })
+      .signers([signer])
+      .rpc();
 
     // Call the select_winner function.
-    const winner = await program.methods.selectWinner();
+    const winner = await program.methods
+      .selectWinner()
+      .accounts({
+        competition: competition.publicKey,
+        authority: signer.publicKey,
+        systemProgram: anchor.web3.SystemProgram.programId,
+      })
+      .signers([signer])
+      .rpc();
 
     // Check that a winner was selected.
     expect(winner).to.be.instanceOf(PublicKey);
