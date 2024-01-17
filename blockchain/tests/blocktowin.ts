@@ -8,6 +8,11 @@ describe("blocktowin", () => {
 
   const program = anchor.workspace.Blocktowin as Program<Blocktowin>;
 
+  it("can fetch all competitions", async () => {
+    const comps = await program.account.competitionModel.all();
+    console.log("Your Competitions", comps);
+  });
+
   it("Is initialized!", async () => {
 
     console.log( program.methods );
