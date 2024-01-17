@@ -33,5 +33,38 @@ export const useBlock2Win = () => {
     setProgram(_program)
   }, [wallet, connection, blocktowinContractAddress])
 
-  return { program }
+  const manageCompetition = async (competition: {name: string, description: string}) => {
+    if(!program) return
+
+    return program.methods.manageCompetition(competition, {
+      accounts: {
+        competition: wallet?.publicKey,
+        systemProgram: anchor.web3.SystemProgram.programId,
+        rent: anchor.web3.SYSVAR_RENT_PUBKEY,
+      },
+      signers: [wallet?.publicKey],
+    }).rpc()
+  }
+
+  const buyTickets = async (account: anchor.web3.PublicKey, amount: number) => {
+    if(!program) return
+
+    return program.methods.buyTickets(amount, {
+      accounts: {
+        competition: account,
+        user: wallet?.publicKey,
+        systemProgram: anchor.web3.SystemProgram.programId,
+        rent: anchor.web3.SYSVAR_RENT_PUBKEY,
+      },
+      signers: [wallet?.publicKey],
+    }).rpc()
+  }
+
+  const getCompetitions = async () => {
+    if(!program) return
+
+    return program.account.competitionModel.all()
+  }
+
+  return { program, getCompetitions, manageCompetition, buyTickets, isConnected: !!program }
 }
