@@ -1,4 +1,4 @@
-export const blocktowinContractAddress = 'FamG9VxcBpXYGeFHUgPDqVBdFMqNh3omntXwWXZpJitE'
+export const blocktowinContractAddress = 'HgDCYQefJ2eWbi4MKXLhuNTVAYzVyD6pxrWnk79Zqs57'
 
 export const temporaryCompetitions = [
   {

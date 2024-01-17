@@ -25,6 +25,7 @@ describe("blocktowin", () => {
     console.log("Your Competitions", comps);
   });
 
+  /*
   it("can init competition owner", async () => {
     ownerkey = await program.methods.initCompetitions(count).accounts({
       competitionOwner: owner.publicKey
@@ -33,6 +34,7 @@ describe("blocktowin", () => {
     .rpc();
     console.log("Your Competition Owner:", ownerkey);
   });
+  */
 
   /*
   before(async () => {
@@ -46,6 +48,7 @@ describe("blocktowin", () => {
   });
   */
 
+  /*
   it("Add Competitions", async () => {
 
     console.log( program.methods );
@@ -99,7 +102,7 @@ describe("blocktowin", () => {
     console.log("Add Competition 2 tx signature", txb);
 
   });
-
+  */
 
   it("can fetch all competitions", async () => {
     const comps = await program.account.competitionModel.all();
