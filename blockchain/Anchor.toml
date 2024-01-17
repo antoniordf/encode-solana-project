@@ -17,7 +17,7 @@ blocktowin = "9TN3ZKV1B5ARTUjBgigHAL7iQDZAStYxfGGAjqEtu9XX"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "devnet"
+cluster = "localnet"
 wallet = "/home/ubuntu/.config/solana/id.json"
 
 [scripts]
