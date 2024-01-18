@@ -2,6 +2,7 @@
 
 import { Button } from '@chakra-ui/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import React, { FC } from 'react'
 
 export const Hero:FC = ({}) => {
@@ -14,8 +15,8 @@ export const Hero:FC = ({}) => {
         <p className="font-light text-2xl">
           Every week we give away 1000 SOL. <br/> Enter now for a chance to win!
         </p>
-        <div className='mt-8 w-8 z-20'>
-          <Button colorScheme='purple' onClick={() => console.log('Buying')}>Buy Ticket</Button>
+        <div className='mt-8 z-20'>
+          <Link href='/competitions' className='p-4 bg-purple-500 text-white rounded-md font-bold'>View Competitions</Link>
         </div>
       </div>
       <div>
