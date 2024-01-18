@@ -5,7 +5,7 @@ import * as anchor from '@coral-xyz/anchor'
 import IDL from '../../../idl/blocktowin.json'
 import { blocktowinContractAddress } from '../constants'
 import { findProgramAddressSync } from '@project-serum/anchor/dist/cjs/utils/pubkey'
-import { publicKey } from '@coral-xyz/anchor/dist/cjs/utils'
+import { PublicKey } from '@solana/web3.js'
 
 export const useBlock2Win = () => {
   const wallet = useAnchorWallet()
@@ -37,7 +37,7 @@ export const useBlock2Win = () => {
 
   const manageCompetition = async ({ name, description }: {name: string, description: string}) => {
     if(!program) return
-
+    const owner = 'HgDCYQefJ2eWbi4MKXLhuNTVAYzVyD6pxrWnk79Zqs57'
     const [competition] = findProgramAddressSync(
       [
         anchor.utils.bytes.utf8.encode('manage-competition'),
@@ -51,8 +51,7 @@ export const useBlock2Win = () => {
       description,
     ).accounts({
       competition,
-      authority: wallet!.publicKey,
-      systemProgram: anchor.web3.SystemProgram.programId //program.programId
+      owner: new PublicKey(owner),
     })
     .rpc()
   }
@@ -60,18 +59,8 @@ export const useBlock2Win = () => {
   const buyTickets = async (publicKey: anchor.web3.PublicKey, amount: number) => {
     if(!program) return
     
-    const [competition] = findProgramAddressSync(
-      [
-        anchor.utils.bytes.utf8.encode('manage-competition'),
-        publicKey.toBuffer(),
-      ],
-      program.programId
-    )
-    
     return program.methods.buyTickets(wallet!.publicKey, amount).accounts({
-      buyer: wallet?.publicKey,
-      competition,
-      systemProgram: anchor.web3.SystemProgram.programId,
+      competition: publicKey,
     })
     .rpc()
   }
