@@ -1,10 +1,11 @@
 import React, { FC } from 'react'
 import { Button, Input, Progress } from '@chakra-ui/react'
 import Image from 'next/image'
+import * as anchor from '@coral-xyz/anchor'
 
 interface CompetitionCardProps {
   title: string
-  id: number,
+  publicKey: anchor.web3.PublicKey,
   description: string
   poolPrize: number
   ticketCost: number
@@ -13,10 +14,10 @@ interface CompetitionCardProps {
   maxEntries: number
   openDate: Date
   closeDate: Date
-  onBuyTickets: (id: number, amount: number) => void
+  onBuyTickets: (publicKey: anchor.web3.PublicKey, amount: number) => void
 }
 
-export const CompetitionCard:FC<CompetitionCardProps> = ({ title, description, poolPrize, id, ticketCost, totalTickets, ticketsSold, maxEntries, openDate, closeDate, onBuyTickets }) => {
+export const CompetitionCard:FC<CompetitionCardProps> = ({ title, description, poolPrize, publicKey, ticketCost, totalTickets, ticketsSold, maxEntries, openDate, closeDate, onBuyTickets }) => {
   const [ amount, setAmount ] = React.useState<number>(0)
   const [ error, setError ] = React.useState<string>('')
   
@@ -38,7 +39,7 @@ export const CompetitionCard:FC<CompetitionCardProps> = ({ title, description, p
       return
     }
 
-    onBuyTickets(id, amount)
+    onBuyTickets(publicKey, amount)
   }
 
   const onSetAmount = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +78,7 @@ export const CompetitionCard:FC<CompetitionCardProps> = ({ title, description, p
       </div>
       <div className='flex flex-col justify-between items-center p-6 pb-0'>
 
-        <Input className='w-full mb-4' placeholder='Amount' onChange={onSetAmount}/>
+        <Input className='w-full mb-4' placeholder='Amount' onChange={onSetAmount} type='number' min={0}/>
         <Button colorScheme="purple" onClick={onClick} className='w-full' isDisabled={!isOpen() ? true : false}>{isOpen() ? 'Buy Tickets' : 'Too late'}</Button>
         <div className='h-6 flex justify-center items-center mt-1'>{error ? 
           <div className=''>
