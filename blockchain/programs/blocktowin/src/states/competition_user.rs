@@ -6,7 +6,7 @@ pub struct CompetitionUser {
     pub authority: Pubkey,
 
     /// Number of tickets purchased
-    pub tickets: i64,
+    pub tickets: u32,
 }
 
 /*

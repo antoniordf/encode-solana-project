@@ -46,7 +46,7 @@ pub mod blocktowin {
     }
 
     /// Buy Tickets - entry to competition
-    pub fn buy_tickets(ctx: Context<BuyTickets>, account: Pubkey, number: u16) -> Result<()> {
+    pub fn buy_tickets(ctx: Context<BuyTickets>, account: Pubkey, number: u32) -> Result<()> {
         instructions::buy_tickets::handler(ctx, account, number)
     }
 
