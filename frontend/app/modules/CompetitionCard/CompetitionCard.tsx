@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Button, Card, Input, Progress } from '@chakra-ui/react'
+import { Button, Input, Progress } from '@chakra-ui/react'
 import Image from 'next/image'
 
 interface CompetitionCardProps {
@@ -48,7 +48,7 @@ export const CompetitionCard:FC<CompetitionCardProps> = ({ title, description, p
   const isOpen = () => openDate <= new Date() && closeDate >= new Date()
   
   return (
-    <Card>
+    <div className='bg-transparent border-slate-800 border rounded-md'>
       <div className='flex justify-center items-center flex-col mb-0 p-6'>
         <Image src='/solana-sol-logo.png' width={50} height={50} alt='solana' />
         <span className='font-bold text-4xl'>{poolPrize}</span>
@@ -85,6 +85,6 @@ export const CompetitionCard:FC<CompetitionCardProps> = ({ title, description, p
           </div> : null
         }</div>
       </div>
-    </Card>
+    </div>
   )
 }
