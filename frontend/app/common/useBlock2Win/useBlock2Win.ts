@@ -5,6 +5,7 @@ import * as anchor from '@coral-xyz/anchor'
 import IDL from '../../../idl/blocktowin.json'
 import { blocktowinContractAddress } from '../constants'
 import { findProgramAddressSync } from '@project-serum/anchor/dist/cjs/utils/pubkey'
+import { publicKey } from '@coral-xyz/anchor/dist/cjs/utils'
 
 export const useBlock2Win = () => {
   const wallet = useAnchorWallet()
@@ -56,15 +57,21 @@ export const useBlock2Win = () => {
     .rpc()
   }
 
-  const buyTickets = async (account: anchor.web3.PublicKey, amount: number) => {
+  const buyTickets = async (publicKey: anchor.web3.PublicKey, amount: number) => {
     if(!program) return
-
-    return program.methods.buyTickets(account, amount).accounts({
-      accounts: {
-        buyer: wallet?.publicKey,
-        competition: account,
-        systemProgram: anchor.web3.SystemProgram.programId,
-      },
+    
+    const [competition] = findProgramAddressSync(
+      [
+        anchor.utils.bytes.utf8.encode('manage-competition'),
+        publicKey.toBuffer(),
+      ],
+      program.programId
+    )
+    
+    return program.methods.buyTickets(wallet!.publicKey, amount).accounts({
+      buyer: wallet?.publicKey,
+      competition,
+      systemProgram: anchor.web3.SystemProgram.programId,
     })
     .rpc()
   }
