@@ -52,7 +52,7 @@ pub fn handler<>(ctx: Context<ManageCompetition>, title: String, description: St
     let current_timestamp = clock.unix_timestamp;
 
     competition.opendate = current_timestamp;
-    competition.closedate = current_timestamp + (5 * 60); // 5 minutes
+    competition.closedate = current_timestamp + (60 * 60 * 24); // 24 hours
 
 
     competition.idx = owner.competition_count;

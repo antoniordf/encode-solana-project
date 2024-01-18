@@ -26,6 +26,7 @@ describe("blocktowin", () => {
   });
 
   /*
+  
   it("can init competition owner", async () => {
     ownerkey = await program.methods.initCompetitions(count).accounts({
       competitionOwner: owner.publicKey
@@ -49,6 +50,7 @@ describe("blocktowin", () => {
   */
 
   /*
+
   it("Add Competitions", async () => {
 
     console.log( program.methods );
@@ -102,11 +104,52 @@ describe("blocktowin", () => {
     console.log("Add Competition 2 tx signature", txb);
 
   });
+  
+
   */
 
-  it("can fetch all competitions", async () => {
+  //it("can fetch all competitions", async () => {
+  //  const comps = await program.account.competitionModel.all();
+  //  console.log("Your Competitions", comps);
+  //});
+
+
+
+
+  /*
+
+  it("get current competitions", async () => {
     const comps = await program.account.competitionModel.all();
     console.log("Your Competitions", comps);
+
+    // get first competition - debug some info
+    let  mycomp;
+    comps.forEach( comp => {
+        if(comp.account.idx == 1){
+            mycomp = comp;
+
+            console.log(`Pool Prize ${ comp.account.poolprize.toNumber() }` );
+            console.log(`Entry costs ${ comp.account.entrycost.toNumber() }` );
+            console.log(`Total tickets ${ comp.account.totaltickets.toNumber() }` );
+            console.log(`Sold tickets ${ comp.account.soldtickets.toNumber() }` );
+            console.log(`Max  entries ${ comp.account.maxentries.toNumber() }` );
+            console.log(`Open date ${ new Date( comp.account.opendate.toNumber() ).toISOString() }` );
+            console.log(`Close date ${ new Date( comp.account.closedate.toNumber() ).toISOString() }` );
+
+        }
+    });
+
+    // call buy tickets
+    let txbuy = await program.methods.buyTickets(signer.publicKey, 200).accounts({
+       competition: mycomp.publicKey,
+    }).rpc();
+
+    console.log("Your Purchase", txbuy);
+
+
   });
+
+  */
+
   
 });

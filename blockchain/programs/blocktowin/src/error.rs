@@ -9,5 +9,7 @@ pub enum ErrorCodes {
     #[msg("Already entered into competion")]
     AlreadyEntered,
     #[msg("Max number of entries exceeded")]
-    MaxEntries
+    MaxEntries,
+    #[msg("No more entries allowed")]
+    NoEmptySlot
 }
