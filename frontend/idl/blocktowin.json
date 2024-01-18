@@ -25,6 +25,33 @@
   ],
   "instructions": [
     {
+      "name": "initCompetitions",
+      "accounts": [
+        {
+          "name": "competitionOwner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "count",
+          "type": "u32"
+        }
+      ],
+      "returns": "publicKey"
+    },
+    {
       "name": "manageCompetition",
       "docs": [
         "Add, edit competition"
@@ -32,6 +59,11 @@
       "accounts": [
         {
           "name": "competition",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "owner",
           "isMut": true,
           "isSigner": false
         },
@@ -91,7 +123,7 @@
         },
         {
           "name": "number",
-          "type": "u16"
+          "type": "u32"
         }
       ]
     },
@@ -226,6 +258,18 @@
           }
         ]
       }
+    },
+    {
+      "name": "CompetitionOwner",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "competitionCount",
+            "type": "u32"
+          }
+        ]
+      }
     }
   ],
   "types": [
@@ -246,7 +290,7 @@
             "docs": [
               "Number of tickets purchased"
             ],
-            "type": "i64"
+            "type": "u32"
           }
         ]
       }
@@ -272,6 +316,14 @@
       "code": 6003,
       "name": "MaxEntries",
       "msg": "Max number of entries exceeded"
+    },
+    {
+      "code": 6004,
+      "name": "NoEmptySlot",
+      "msg": "No more entries allowed"
     }
-  ]
+  ],
+  "metadata": {
+    "address": "HgDCYQefJ2eWbi4MKXLhuNTVAYzVyD6pxrWnk79Zqs57"
+  }
 }
